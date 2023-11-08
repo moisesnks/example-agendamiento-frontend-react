@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom'; // Importa useNavigate desde rea
 import Carrusel from './carrusel/OfferCarousel'
 
 import './Home.css';
+import Footer from '../../utils/Footer';
+import Header from '../../utils/Header';
 
 const Home = () => {
     const [aeropuertos, setAeropuertos] = useState([]);
@@ -84,7 +86,7 @@ console.log(ubicacion)
 
     return (
         <div className="Home">
-
+            <Header/>   
             <div className="Contenedor">
                 <h1 className="Titulo">¡Busca tu viaje ahora!</h1>
                 <BuscaViaje
@@ -92,7 +94,6 @@ console.log(ubicacion)
                     onSubmit={handleBuscarViaje}
                 />
             </div>
-         
         </div>
     );
 };
