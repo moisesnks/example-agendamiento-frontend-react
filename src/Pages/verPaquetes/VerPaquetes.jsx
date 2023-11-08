@@ -28,10 +28,10 @@ const VerPaquetes = () => {
     const [showModal, setShowModal] = useState(false);
     const [paquetesFiltrados, setPaquetesFiltrados] = useState([]);
 
-    const filtrarPaquetes = (stars, serviceTypes) => {
-        console.log(stars, serviceTypes);
+    const handleClickFilter = (stars, serviceTypes) => {
+        console.log('el papaaaa', stars, serviceTypes);
     };
-    
+
     const placeholder = {
         origen: `Origen: ${respuesta.origen_id}`,
         destino: `Destino: ${respuesta.destino_id}`,
@@ -139,7 +139,7 @@ const VerPaquetes = () => {
             <Footer />
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                 <Modal.Body>
-                    <Filtros filtrarPaquetes={filtrarPaquetes} />
+                    <Filtros onFilterClick={handleClickFilter} />
                 </Modal.Body>
 
             </Modal>

@@ -7,14 +7,14 @@ import './Filtros.css';
 import Estrellas from '../Estrellas';
 import { useEffect } from 'react';
 
-const Filtros = ({ filtrarPaquetes }) => {
+const Filtros = ({ onFilterClick }) => {
   const [stars, setStars] = useState('');
   const [serviceTypes, setServiceTypes] = useState([]);
 
   const handleReset = () => {
     setStars('');
     setServiceTypes([]);
-    // filtrarPaquetes(() => true); // Restablecer a todos los paquetes
+    // onFilterClick(() => true); // Restablecer a todos los paquetes
   };
 
   const services = [
@@ -43,51 +43,51 @@ const Filtros = ({ filtrarPaquetes }) => {
   };
 
   const handleFilterClick = () => {
-    filtrarPaquetes(stars, serviceTypes)
+    onFilterClick(stars, serviceTypes)
     console.log('Filtrando...');
   };
 
   useEffect(() => {
     console.log(stars);
-  },[stars]);
+  }, [stars]);
 
   useEffect(() => {
     console.log(serviceTypes);
-  },[serviceTypes]);
+  }, [serviceTypes]);
 
 
   return (
     <Form className="contenedor-filtros">
-    <h2>Filtros</h2>
-    <FormGroup>
-      <legend className="label">
-        Estrellas
-      </legend>
-      <Estrellas valoracion={parseInt(stars)} onStarClick={handleStarClick} labelId="stars" />
-    </FormGroup>
-
-
-    <FormGroup className='contenedor-servicios'>
-  <legend className="label">Servicios</legend>
-  <div className='servicios'>
-    {services.map((service) => (
-      <FormGroup key={service.id} check>
-        <Label check for={service.id}>
-          <Input
-            type="checkbox"
-            id={service.id}
-            name={service.id}
-            value={service.id}
-            checked={serviceTypes.includes(service.id)}
-            onChange={handleServiceTypeChange}
-          />
-          {service.label}
-        </Label>
+      <h2>Filtros</h2>
+      <FormGroup>
+        <legend className="label">
+          Estrellas
+        </legend>
+        <Estrellas valoracion={parseInt(stars)} onStarClick={handleStarClick} labelId="stars" />
       </FormGroup>
-    ))}
-  </div>
 
-</FormGroup>
+
+      <FormGroup className='contenedor-servicios'>
+        <legend className="label">Servicios</legend>
+        <div className='servicios'>
+          {services.map((service) => (
+            <FormGroup key={service.id} check>
+              <Label check for={service.id}>
+                <Input
+                  type="checkbox"
+                  id={service.id}
+                  name={service.id}
+                  value={service.id}
+                  checked={serviceTypes.includes(service.id)}
+                  onChange={handleServiceTypeChange}
+                />
+                {service.label}
+              </Label>
+            </FormGroup>
+          ))}
+        </div>
+
+      </FormGroup>
 
       <div className="botones">
         <Button onClick={handleFilterClick}>
