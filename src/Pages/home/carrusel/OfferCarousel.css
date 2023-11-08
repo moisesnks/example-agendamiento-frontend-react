@@ -122,3 +122,14 @@ Information p {
     right: -25px;
   }
 }
+
+.estrellas span{
+
+  font-size: 2rem;
+}
+.estrellas p {
+
+font-size: 1rem;
+
+}
+

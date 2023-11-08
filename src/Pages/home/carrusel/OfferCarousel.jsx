@@ -1,34 +1,48 @@
 import React, { useState, useEffect } from 'react';
-import {  getPaquetesOfertas } from '../../../api';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './OfferCarousel.css';
 import Carousel from 'react-bootstrap/Carousel';
+import { renderStars } from '../../../Components/utils';
 
+function OfferCard({ paquete, cardsToShow, VITE_PATH_IMAGES }) {
+  // Limpia la cadena de imÃ¡genes, elimina corchetes y espacios en blanco
+  const cleanedImages = paquete.imagenes ? paquete.imagenes.replace(/[{}]/g, '').split(',').map(image => image.trim()) : [];
 
-function OfferCarousel({paquete}) {
-  const [cards, setCards] = useState([]);
+  // Toma la primera imagen si existe
+  const firstImage = cleanedImages.length > 0 ? cleanedImages[0] : '';
+
+  // Construye la URL completa de la primera imagen
+  const imageUrl = `${VITE_PATH_IMAGES}${firstImage}`;
+
+  return (
+    <div className={`col-md-${12 / cardsToShow} col-sm-6 mt-2 mb-2`}>
+      <div className="card mb-2" style={{ height: '100%' }}>
+        <img src={imageUrl} alt={paquete.title} className="card-img-top" />
+        <div className="card-body">
+          <div className="Package-info">
+            {/* <div className="d-flex justify-content-between">
+              <div className="bg-secondary text-white rounded p-2 ida">{paquete.fecha_init} </div>
+              <div className="bg-primary text-white rounded p-2"> {paquete.fecha_fin}</div>
+            </div> */}
+          </div>
+          <h2 className="card-title">{paquete.nombre}</h2>
+          <div className='estrellas d-flex'>
+            <p >{paquete.info_paquete.hotel_info.nombre_hotel} </p>
+            {renderStars(paquete.info_paquete.hotel_info.valoracion_hotel)}
+          </div>
+          <div className="Information d-flex flex-column">
+            <h3 className='fw-bold'>{paquete.precio_oferta_vuelo}</h3>
+            <h3 className='text-decoration-line-through'>{paquete.precio_vuelo}</h3>
+          </div>
+          <div className='d-flex justify-content-end'><button className="btn btn-primary btn-card ">Ver Paquete</button></div>
+          
+        </div>
+      </div>
+    </div>
+  );
+}
+function OfferCarousel({ paquetes }) {
   const [cardsToShow, setCardsToShow] = useState(4);
-
-  console.log(paquete)
-
-  // Convierte las fechas a objetos Date
-  const fechaInicio = new Date(fechainit);
-  const fechaFin = new Date(fechafin);
-
-  // Calcula la diferencia en milisegundos
-  const diferenciaEnMilisegundos = fechaFin - fechaInicio;
-
-  // Calcula la diferencia en días
-  const diferenciaEnDias = diferenciaEnMilisegundos / (1000 * 60 * 60 * 24);
-
-
-  // Convierte la cadena de imágenes en un arreglo
-  const imagesArray = imagenes ? imagenes.substring(1, imagenes.length - 1).split(',') : [];
-
-  // Construye las URLs de las imágenes usando la variable VITE_PATH_IMAGES
-  const VITE_PATH_IMAGES = import.meta.env.VITE_PATH_IMAGES;
-  const imageUrls = imagesArray.map(image => `${VITE_PATH_IMAGES}${image.trim()}`);
-
 
   useEffect(() => {
     const updateCardsToShow = () => {
@@ -53,9 +67,6 @@ function OfferCarousel({paquete}) {
     };
   }, []);
 
-  
-
-
   const chunkArray = (arr, chunkSize) => {
     const chunkedArray = [];
     for (let i = 0; i < arr.length; i += chunkSize) {
@@ -64,39 +75,19 @@ function OfferCarousel({paquete}) {
     return chunkedArray;
   };
 
-  const chunkedCards = chunkArray(cards, cardsToShow);
+  const VITE_PATH_IMAGES = import.meta.env.VITE_PATH_IMAGES;
+  const chunkedPaquetes = chunkArray(paquetes, cardsToShow);
 
   return (
     <div className="offer mt-5">
       <h1>Destacados</h1>
       <div className="container">
         <Carousel interval={null}>
-        {chunkedCards.map((cardGroup, groupIndex) => (
-  <Carousel.Item key={`carousel-item-${groupIndex}`}>
-    <div className="row justify-content-center">
-                {cardGroup.map((card) => (
-                 <div key={card.id} className={`col-md-${12 / cardsToShow} col-sm-6 mt-2 mb-2`}>
-                    <div className="card mb-2" style={{ height: '100%' }}>
-                      <img src={Paquete.imageSrc} alt={paqueteaquete.title} className="card-img-top" />
-                      <div className="card-body">
-                        <div className="Package-info">
-                          <div className="d-flex justify-content-between">
-                            <div className="bg-secondary text-white rounded p-2 ida">Ida+Vuelta</div>
-                            <div className="bg-primary text-white rounded p-2">{Paquete.description}</div>
-                          </div>
-                        </div>
-                        <h2 className="card-title">{Paquete.title}</h2>
-                        <div className="Information">
-                          <p>Precio</p>
-                          <h3>{Paquete.price}</h3>
-                          <p style={{ fontSize: '14px' }}>
-                            Duración: {Paquete.startDate} - {Paquete.endDate}
-                          </p>
-                        </div>
-                        <button className="btn btn-primary btn-card">Ver Paquete</button>
-                      </div>
-                    </div>
-                  </div>
+          {chunkedPaquetes.map((paqueteGroup, groupIndex) => (
+            <Carousel.Item key={`carousel-item-${groupIndex}`}>
+              <div className="row justify-content-center">
+                {paqueteGroup.map((paquete) => (
+                  <OfferCard key={paquete.id} paquete={paquete} cardsToShow={cardsToShow} VITE_PATH_IMAGES={VITE_PATH_IMAGES} />
                 ))}
               </div>
             </Carousel.Item>
