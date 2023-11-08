@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import LoadingSpinner from '../../Components/LoadingSpinner/LoadingSpinner';
 import { getPaquetes, getPaquetesMes, agregarVista } from '../../api';
 import { useNavigate } from 'react-router-dom'; // Importa useNavigate desde react-router-dom
 
 import BuscaViaje from '../../Components/buscaViaje/BuscaViaje';
 import ListaPaquetes from '../../Components/listaPaquetes/ListaPaquetes';
+import BotonOrdener from '../../Components/botonOrdenar/SortBy'
 
 import './VerPaquetes.css';
 
@@ -109,7 +111,13 @@ const VerPaquetes = () => {
                     className={'VerPaquetes__Header'}
                 />
             </div>
+           
             <div className="VerListaPaquetes">
+            <div className="col-md-12 mx-5 mr-5 mt-2 pl-5 ">
+          <div className="mx-5" >
+            <BotonOrdener paquetes={paquetes} setPackages={setPaquetes} />
+          </div>
+        </div>
                 <ListaPaquetes
                     paquetes={paquetes}
                     onBuy={handleComprar}
