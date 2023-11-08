@@ -5,6 +5,8 @@ import LoadingSpinner from '../../Components/LoadingSpinner/LoadingSpinner';
 import { useNavigate } from 'react-router-dom'; // Importa useNavigate desde react-router-dom
 
 import './Home.css';
+import Footer from '../../utils/Footer';
+import Header from '../../utils/Header';
 
 const Home = () => {
     const [aeropuertos, setAeropuertos] = useState([]);
@@ -46,7 +48,7 @@ const Home = () => {
 
     return (
         <div className="Home">
-
+            <Header/>   
             <div className="Contenedor">
                 <h1 className="Titulo">¡Busca tu viaje ahora!</h1>
                 <BuscaViaje
@@ -54,6 +56,7 @@ const Home = () => {
                     onSubmit={handleBuscarViaje}
                 />
             </div>
+            <Footer/>
         </div>
     );
 };

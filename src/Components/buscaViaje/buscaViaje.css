@@ -97,7 +97,7 @@
 
 .BotonBuscar {
     padding: 10px 20px;
-    background-color: #0298d0;
+    background-color: #FB8500;
     /* Fondo azul */
     color: white;
     /* Texto blanco */
@@ -108,10 +108,11 @@
     /* Cursor tipo pointer para indicar que es clickeable */
     font-size: 18px;
     font-weight: bold;
+    transition: .2s ease;
 }
 
 .BotonBuscar:hover {
-    background-color: #0277bd;
+    background-color: #E16000;
     /* Color un poco más oscuro al pasar el ratón por encima */
 }
 

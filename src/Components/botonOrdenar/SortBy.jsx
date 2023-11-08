@@ -27,7 +27,7 @@ function SortBy({ paquetes, setPackages }) {
   return (
     <Dropdown>
       <Dropdown.Toggle variant="warning" id="dropdown-basic">
-        Ordenar Por
+        Ordenar
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
