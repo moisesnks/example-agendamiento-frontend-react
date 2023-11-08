@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { getAeropuertos, getUbicacion, getOfertas } from '../../api';
+import { getAeropuertos, getUbicacion, getPaquetesOfertas } from '../../api';
 import BuscaViaje from '../../Components/buscaViaje/BuscaViaje';
 import LoadingSpinner from '../../Components/LoadingSpinner/LoadingSpinner';
 import { useNavigate } from 'react-router-dom'; // Importa useNavigate desde react-router-dom
+import Carrusel from './carrusel/OfferCarousel'
 
 import './Home.css';
 import Footer from '../../utils/Footer';
@@ -45,13 +46,13 @@ const Home = () => {
 
         fetchUbicacion();
     }, []);
-
+console.log(ubicacion)
 
 
     useEffect(() => {
         const fetchOfertas = async () => {
             try {
-                const data = await getOfertas(ubicacion);
+                const data = await getPaquetesOfertas(ubicacion);
                 setPaquetesOfertas(data);
             } catch (error) {
                 setError(error);
@@ -63,8 +64,7 @@ const Home = () => {
         fetchOfertas();
     }, [ubicacion]);
 
-console.log(paquetesOfertas)
- 
+ console.log(paquetesOfertas)
 
 
     const handleBuscarViaje = (respuesta) => {
@@ -94,7 +94,6 @@ console.log(paquetesOfertas)
                     onSubmit={handleBuscarViaje}
                 />
             </div>
-            <Footer/>
         </div>
     );
 };
