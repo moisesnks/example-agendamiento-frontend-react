@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './customCalendar.css';
@@ -27,6 +27,22 @@ const CustomCalendar = ({ onDateSelect, placeholder = "Selecciona una fecha" }) 
     const [view, setView] = useState('month');
     const [calendarVisible, setCalendarVisible] = useState(false);
     const [inputValue, setInputValue] = useState('');
+    const calendarRef = useRef(null);
+    const containerRef = useRef(null);
+
+    useEffect(() => {
+        const handleOutsideClick = (e) => {
+            if (containerRef.current && !containerRef.current.contains(e.target)) {
+                setCalendarVisible(false);
+            }
+        };
+
+        document.addEventListener('click', handleOutsideClick);
+
+        return () => {
+            document.removeEventListener('click', handleOutsideClick);
+        };
+    }, []);
 
     const handleDateChange = (date) => {
         if (Array.isArray(date)) {
@@ -62,7 +78,7 @@ const CustomCalendar = ({ onDateSelect, placeholder = "Selecciona una fecha" }) 
 
 
     return (
-        <div className="CalendarContainer">
+        <div ref={containerRef} className="CalendarContainer">
             <div>
                 <input
                     className="CalendarInput"
@@ -72,10 +88,9 @@ const CustomCalendar = ({ onDateSelect, placeholder = "Selecciona una fecha" }) 
                     placeholder={placeholder ? placeholder : "Selecciona una fecha"}
                     readOnly
                 />
-
             </div>
             {calendarVisible && (
-                <div className="CalendarPopupContainer">
+                <div ref={calendarRef} className="CalendarPopupContainer">
                     <Calendar
                         onChange={handleDateChange}
                         value={date}
@@ -83,6 +98,8 @@ const CustomCalendar = ({ onDateSelect, placeholder = "Selecciona una fecha" }) 
                         maxDetail={view}
                         minDetail={view}
                         selectRange={view === 'month'}
+                        //minDate es para no poder seleccionar fechas anteriores a la actual
+                        //minDate={new Date()}
                     />
                     <button className="CalendarToggleBtn" onClick={handleToggleView}>
                         Ver {view === 'month' ? 'por mes' : 'por día'}
@@ -91,8 +108,6 @@ const CustomCalendar = ({ onDateSelect, placeholder = "Selecciona una fecha" }) 
             )}
         </div>
     );
-
-
 };
 
 export default CustomCalendar;

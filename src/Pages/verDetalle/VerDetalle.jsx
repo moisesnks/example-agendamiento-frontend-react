@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Gallery from 'react-image-gallery';
 import Modal from 'react-modal';
+import tarjetaDescripcion from './tarjetaDescripcion/tarjetaDescripcion.jsx';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import { renderStars, renderServiceIcons } from '../../Components/utils.jsx';
-
+import TarjetaContacto from './tarjetaContacto/TarjetaContacto.jsx';
 import './verDetalle.css';
 
 // Esta línea es necesaria para la accesibilidad del modal
@@ -56,6 +57,7 @@ const VerDetalle = () => {
     // Funciones para abrir y cerrar el modal de la galería
     const openGalleryModal = () => setIsGalleryModalOpen(true);
     const closeGalleryModal = () => setIsGalleryModalOpen(false);
+
 
     return (
         <div className="verDetalleContainer">
@@ -116,13 +118,14 @@ const VerDetalle = () => {
                 <p>{descripcion_hotel}</p>
                 <div className="servicesContainer">{renderServiceIcons(servicios_hotel)}</div>
             </div>
-
+            <div className='DescripcionPaquete'>
+                <tarjetaDescripcion descripcion={descripcion} />
+                </div>
             <div className="detalleContacto">
-                <h2>Contacto del Hotel</h2>
-                <p>{`Teléfono: ${telefono_hotel}`}</p>
-                <p>{`Correo Electrónico: ${correo_electronico_hotel}`}</p>
-                <p>{`Sitio Web: ${sitio_web_hotel}`}</p>
-            </div>
+                <TarjetaContacto telefono_hotel={telefono_hotel}
+                 correo_electronico_hotel={correo_electronico_hotel}
+                 sitio_web_hotel={sitio_web_hotel}  />
+             </div>
 
             {/* Aquí puedes insertar otros elementos y detalles según tus necesidades */}
         </div>

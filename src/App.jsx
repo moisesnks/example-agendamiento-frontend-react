@@ -10,7 +10,6 @@ import NotFound from './pages/notFound/NotFound.jsx'; // Página para manejar ru
 import VerPaquetes from './Pages/verPaquetes/VerPaquetes.jsx'; // Página para manejar la lista de paquetes
 import VerDetalle from './Pages/verDetalle/verDetalle.jsx'; // Página para manejar los detalles de un paquete
 
-
 const App = () => {
   return (
     <Router>

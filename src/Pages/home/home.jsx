@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { getAeropuertos } from '../../api';
+import { getAeropuertos, getUbicacion, getOfertas } from '../../api';
 import BuscaViaje from '../../Components/buscaViaje/BuscaViaje';
 import LoadingSpinner from '../../Components/LoadingSpinner/LoadingSpinner';
 import { useNavigate } from 'react-router-dom'; // Importa useNavigate desde react-router-dom
 
 import './Home.css';
+import Footer from '../../utils/Footer';
+import Header from '../../utils/Header';
 
 const Home = () => {
     const [aeropuertos, setAeropuertos] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [paquetesOfertas, setPaquetesOfertas]= useState([])
+    const [ubicacion, setUbicacion]= useState({Ciudad:''})
     const [error, setError] = useState(null);
     const navigate = useNavigate(); // Obtén la función de navegación
 
@@ -26,6 +30,42 @@ const Home = () => {
 
         fetchAeropuertos();
     }, []);
+
+    useEffect(() => {
+        const fetchUbicacion = async () => {
+            try {
+                const data = await getUbicacion();
+                setUbicacion({ Ciudad: data.cityName });
+            } catch (error) {
+                setError(error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchUbicacion();
+    }, []);
+
+
+
+    useEffect(() => {
+        const fetchOfertas = async () => {
+            try {
+                const data = await getOfertas(ubicacion);
+                setPaquetesOfertas(data);
+            } catch (error) {
+                setError(error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchOfertas();
+    }, [ubicacion]);
+
+console.log(paquetesOfertas)
+ 
+
 
     const handleBuscarViaje = (respuesta) => {
         console.log(respuesta);
@@ -46,7 +86,7 @@ const Home = () => {
 
     return (
         <div className="Home">
-
+            <Header/>   
             <div className="Contenedor">
                 <h1 className="Titulo">¡Busca tu viaje ahora!</h1>
                 <BuscaViaje
@@ -54,6 +94,7 @@ const Home = () => {
                     onSubmit={handleBuscarViaje}
                 />
             </div>
+            <Footer/>
         </div>
     );
 };
