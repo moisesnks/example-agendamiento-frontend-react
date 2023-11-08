@@ -86,13 +86,20 @@ console.log(ubicacion)
 
     return (
         <div className="Home">
-            <Header/>   
+            <Header />
             <div className="Contenedor">
                 <h1 className="Titulo">¡Busca tu viaje ahora!</h1>
                 <BuscaViaje
                     aeropuertos={aeropuertos}
                     onSubmit={handleBuscarViaje}
                 />
+            </div>
+            <div className="carrusel">
+                {paquetesOfertas != null ? (
+                    <Carrusel paquetes={paquetesOfertas} />
+                ) : (
+                    <div>No se encontraron paquetes de oferta.</div>
+                )}
             </div>
         </div>
     );
