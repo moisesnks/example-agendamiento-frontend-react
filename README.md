@@ -1,4 +1,4 @@
-# React Paquete Envío App
+# Example Agendamiento Front
 
 Una sencilla aplicación React para enviar información sobre paquetes utilizando una API.
 
@@ -13,7 +13,7 @@ Una sencilla aplicación React para enviar información sobre paquetes utilizand
 1. Clona el repositorio:
 
    ```bash
-   git clone https://github.com/tu_usuario/tu-repo.git
+   git clone https://github.com/moisesnks/example-agendamiento-frontend-react
    ```
 
 2. Instala las dependencias:
@@ -31,23 +31,8 @@ Una sencilla aplicación React para enviar información sobre paquetes utilizand
 4. Ejecuta la aplicación:
 
    ```bash
-   npm start
+   npm run dev
    ```
 
-   La aplicación estará disponible en [http://localhost:3000](http://localhost:3000).
+   La aplicación estará disponible en [http://localhost:5173](http://localhost:5173).
 
-## Estructura del Proyecto
-
-- `src/App.js`: Componente principal que contiene la lógica del formulario y la solicitud a la API.
-- `src/App.css`: Estilos para el componente principal.
-- `public/index.html`: Archivo HTML principal.
-
-## Dependencias
-
-- `react`: Biblioteca principal de React.
-- `react-dom`: Integración de React con el DOM.
-- `react-scripts`: Scripts de inicio y construcción para proyectos React.
-
-## Licencia
-
-Este proyecto está bajo la licencia [MIT](LICENSE).
